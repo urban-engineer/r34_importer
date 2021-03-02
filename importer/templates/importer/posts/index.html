@@ -1,0 +1,22 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <ul>
+            <li><a href="{% url 'importer:index' %}">Index</a></li>
+            <li><a href="{% url 'importer:posts-all' %}">All Posts</a></li>
+            <li><a href="{% url 'importer:posts-ingest-ids' %}">Ingest Posts from IDs</a></li>
+            <li><a href="{% url 'importer:posts-unimported' %}">Unimported Posts</a></li>
+            <li><a href="{% url 'importer:posts-fix' %}">Fix Broken Post URLs</a></li>
+        </ul>
+
+        <br>
+        <form action="{% url 'importer:posts-index' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Index">
+        </form>
+    </body>
+</html>

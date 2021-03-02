@@ -1,0 +1,12 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <ul>
+            <li><a href="{% url 'importer:posts-index' %}">Posts Page</a></li>
+            <li><a href="{% url 'importer:tags-index' %}">Tags Page</a></li>
+        </ul>
+    </body>
+</html>

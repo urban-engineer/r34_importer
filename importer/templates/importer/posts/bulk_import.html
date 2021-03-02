@@ -1,0 +1,16 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <form action="{% url 'importer:posts-ingest-ids' %}" method="post">
+            {% csrf_token %}
+            <label for="submit">
+                <textarea name="PostList" cols="10" rows="50"></textarea>
+            </label>
+            <br>
+            <input type="submit" value="Import IDs">
+        </form>
+    </body>
+</html>

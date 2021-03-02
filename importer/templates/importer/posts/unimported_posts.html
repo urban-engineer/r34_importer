@@ -1,0 +1,24 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Post</th>
+                <th>Media URL</th>
+                <th>Import Link</th>
+            </tr>
+            {% for item in post_list %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td><a href="https://rule34.xxx/index.php?page=post&s=view&id={{ item.post_id }}">{{ item.post_id }}</a></td>
+                <td><a href="{{ item.file_url }}">Media</a></td>
+                <td><a href="{% url 'importer:posts-detail' post_id=item.post_id %}">Import</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

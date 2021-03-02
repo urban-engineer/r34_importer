@@ -1,0 +1,31 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <p>Imported post <a href="https://rule34.xxx/index.php?page=post&s=view&id={{ post.post_id }}">[{{ post.post_id }}]</a> to <a href="{{ shimmie_link }}">shimmie</a> with listed tags:</p>
+        <table>
+            <tr>
+                <th>Tag</th>
+                <th>Imported?</th>
+            </tr>
+            {% for tag in post.tags %}
+                <tr {% if tag in post.imported_tags %} class="approved" {% else %} class="denied" {% endif %}>
+                    <td>{{ tag }}</td>
+                    <td>{% if tag in post.imported_tags %} True {% else %} False {% endif %}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <form action="{% url 'importer:index' %}" method="get">
+            {% csrf_token %}
+            <input type="submit" value="Index">
+        </form>
+
+        <form action="{% url 'importer:posts-unimported' %}" method="get">
+            {% csrf_token %}
+            <input type="submit" value="Unimported">
+        </form>
+    </body>
+</html>

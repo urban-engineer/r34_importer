@@ -1,0 +1,17 @@
+{
+    "shimmie": {
+        "link": "http://example.com"
+        "login": "shimmie_user",
+        "password": "shimmie_password",
+    },
+    "django": {
+        "secret-key": "you-should-replace-this",
+        "postgres": {
+            "host": "rule34_importer_database_host",
+            "post": "5432"
+            "name": "rule34_importer",
+            "user": "rule34_importer_user",
+            "password": "rule34_importer_password"
+        }
+    }
+}

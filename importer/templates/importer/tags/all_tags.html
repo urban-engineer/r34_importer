@@ -1,0 +1,26 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Tag</th>
+                <th>Auto Deny</th>
+                <th>Auto Approve</th>
+                <th>Notes</th>
+            </tr>
+            {% for tag in tag_list %}
+                <tr {% if tag.auto_deny and tag.auto_approve %} class="broken" {% elif tag.auto_deny %} class="denied" {% elif tag.auto_approve %} class="approved" {% endif %}>
+                    <td>{{ tag.tag_category }}</td>
+                    <td>{{ tag.tag_name }}</td>
+                    <td>{{ tag.auto_deny }}</td>
+                    <td>{{ tag.auto_approve }}</td>
+                    <td>{{ tag.tag_notes }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

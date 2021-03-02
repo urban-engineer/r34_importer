@@ -1,0 +1,28 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Count</th>
+                <th>Tags</th>
+            </tr>
+            <tr>
+                <td>(All)</td>
+                <td>{{ total_number_of_tags }}</td>
+                <td><a href="{% url 'importer:tags' %}">View Tags (read only)</a></td>
+            </tr>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.0 }}</td>
+                    <td>{{ category.1 }}</td>
+                    <td><a href="{% url 'importer:tags-category' category.0 %}">Edit Tags</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p><a href="{% url 'importer:index' %}">Importer Index</a></p>
+    </body>
+</html>

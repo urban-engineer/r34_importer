@@ -1,0 +1,47 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <form action="{% url 'importer:tags-category-edit' category %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                <th colspan="4">{{ category }}</th>
+                </tr>
+                <tr>
+                    <th>Tag</th>
+                    <th>Auto Deny</th>
+                    <th>Auto Approve</th>
+                    <th>Notes</th>
+                </tr>
+                {% for tag in tags %}
+                    <tr {% if tag.auto_deny and tag.auto_approve %} class="broken" {% elif tag.auto_deny %} class="denied" {% elif tag.auto_approve %} class="approved" {% endif %}>
+                        <td>
+                            <label for="{{ tag.id }}_name"></label>
+                            <input type="hidden" name="tags" id="{{ tag.id }}_name" value="{{ tag.id }}">
+                            <a href="https://rule34.xxx/index.php?page=post&s=list&tags={{ tag.tag_name }}">{{ tag.tag_name }}</a>
+                        </td>
+                        <td>
+                            <label for="{{ tag.id }}_deny">
+                                <input type="checkbox" name="denies" id="{{ tag.id }}_deny" value="{{ tag.id }}" {% if tag.auto_deny %} checked {% endif %}>
+                            </label>
+                        </td>
+                        <td>
+                            <label for="{{ tag.id }}_approve">
+                                <input type="checkbox" name="approves" id="{{ tag.id }}_approve" value="{{ tag.id }}" {% if tag.auto_approve %} checked {% endif %}>
+                            </label>
+                        </td>
+                        <td>
+                            <label for="{{ tag.id }}_notes"></label>
+                            <input type="text" name="notes" id="{{ tag.id }}_approve" value="{{ tag.tag_notes }}">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" name="action" value="Update">
+            <input type="submit" name="action" value="Return">
+        </form>
+    </body>
+</html>

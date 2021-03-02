@@ -1,0 +1,29 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <table>
+            <tr>
+            <th colspan="4">{{ category }}</th>
+            </tr>
+            <tr>
+                <th>Tag</th>
+                <th>Auto Deny</th>
+                <th>Auto Approve</th>
+                <th>Notes</th>
+            </tr>
+            {% for tag in tags %}
+                <tr {% if tag.auto_deny and tag.auto_approve %} class="broken" {% elif tag.auto_deny %} class="denied" {% elif tag.auto_approve %} class="approved" {% endif %}>
+                    <td><a href="https://rule34.xxx/index.php?page=post&s=list&tags={{ tag.tag_name }}">{{ tag.tag_name }}</a></td>
+                    <td>{{ tag.auto_deny }}</td>
+                    <td>{{ tag.auto_approve }}</td>
+                    <td>{{ tag.tag_notes }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p><a href="{% url 'importer:tags-category-edit' category %}">Edit Tags</a></p>
+        <p><a href="{% url 'importer:tags-index' %}">Tag Index</a></p>
+    </body>
+</html>

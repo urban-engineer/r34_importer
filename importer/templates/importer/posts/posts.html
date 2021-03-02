@@ -1,0 +1,64 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        <table style="float: left">
+            <tr>
+                <th>ID</th>
+                <th>Post ID</th>
+                <th>Full URL</th>
+                <th>Sample URL</th>
+                <th>Preview URL</th>
+                <th>Source</th>
+                <th>MD5</th>
+                <th>Parent ID</th>
+                <th>Has Children?</th>
+                <th>Creation Timestamp</th>
+                <th>Imported?</th>
+                <th>Import Timestamp</th>
+                <th>Shimmie Link</th>
+                <th>Detail Link</th>
+            </tr>
+            {% for item in post_list %}
+                <tr>
+                <td>{{ item.id }}</td>
+                    <td><a href="https://rule34.xxx/index.php?page=post&s=view&id={{ item.post_id }}">{{ item.post_id }}</a></td>
+                    <td><a href="{{ item.file_url }}">Link</a></td>
+                    <td><a href="{{ item.sample_url }}">Link</a></td>
+                    <td><a href="{{ item.preview_url }}">Link</a></td>
+                    {% if item.source_url %}
+                        <td><a href="{{ item.source_url }}">Link</a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td><code>{{ item.md5_hash }}</code></td>
+                    {% if item.parent_id != -1 %}
+                        <td><a href="https://rule34.xxx/index.php?page=post&s=view&id={{ item.parent_id }}">{{ item.parent_id }}</a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>{{ item.has_children }}</td>
+                    <td>{{ item.creation_timestamp }}</td>
+                    <td>{{ item.imported }}</td>
+                    {% if item.imported %}
+                        <td>{{ item.import_timestamp }}</td>
+                        {% if item.shimmie_id != -1 %}
+                            <td><a href="{{ shimmie_link }}/index.php?q=post/view/{{ item.shimmie_id }}">{{ item.shimmie_id }}</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
+                    {% if item.imported %}
+                        <td><a href="{% url 'importer:posts-detail' post_id=item.post_id %}">Detail</a></td>
+                    {% else %}
+                        <td><a href="{% url 'importer:posts-detail' post_id=item.post_id %}">Import</a></td>
+                    {% endif %}
+            {% endfor %}
+        </table>
+    </body>
+</html>

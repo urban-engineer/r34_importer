@@ -1,0 +1,14 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="{% static "importer/style.css" %}">
+    <body>
+        {% if fixed_posts|length == 0 %}
+            <p>No importable posts needed to be fixed</p>
+        {% else %}
+            <p>Fixed {{ fixed_posts|length }} posts!</p>
+        {% endif %}
+        <p><a href="{% url 'importer:posts-index' %}">Post Index</a></p>
+    </body>
+</html>
